@@ -1,7 +1,7 @@
 # 基础镜像
-FROM  openjdk:8-jre
+FROM  openjdk8:apline
 # author
-MAINTAINER ruoyi
+MAINTAINER dyangx
 
 # 挂载目录
 VOLUME /home/ruoyi
@@ -12,4 +12,4 @@ WORKDIR /home/ruoyi
 # 复制jar文件到路径
 COPY ./jar/ruoyi-gateway.jar /home/ruoyi/ruoyi-gateway.jar
 # 启动网关服务
-ENTRYPOINT ["java","-jar","ruoyi-gateway.jar"]
+ENTRYPOINT ["java","-Xms256m -Xmx256m -Xmn128m","-jar","ruoyi-gateway.jar"]
