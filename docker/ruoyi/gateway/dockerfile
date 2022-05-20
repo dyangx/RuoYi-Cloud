@@ -1,5 +1,5 @@
 # 基础镜像
-FROM  openjdk8:apline-jre
+FROM  openjdk8:alpine-jre
 # author
 MAINTAINER dyangx
 
