@@ -1,5 +1,5 @@
 # 基础镜像
-FROM  openjdk8:alpine-jre
+FROM  oraclejdk8:alpine-zh
 # author
 MAINTAINER ruoyi
 
