@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-idea
+  labels:
+    app: tomcat-idea
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: tomcat-idea
+      labels:
+        app: tomcat-idea
+    spec:
+      containers:
+        - name: tomcat-idea
+          image: tomcat:9.0.20-jre8-alpine
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: tomcat-idea

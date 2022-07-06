@@ -1,10 +1,12 @@
 package com.ruoyi.system;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.ruoyi.common.security.annotation.EnableCustomConfig;
 import com.ruoyi.common.security.annotation.EnableRyFeignClients;
 import com.ruoyi.common.swagger.annotation.EnableCustomSwagger2;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  * 系统模块
@@ -17,6 +19,10 @@ import com.ruoyi.common.swagger.annotation.EnableCustomSwagger2;
 @SpringBootApplication
 public class RuoYiSystemApplication
 {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     public static void main(String[] args)
     {
         SpringApplication.run(RuoYiSystemApplication.class, args);

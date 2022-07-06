@@ -2,6 +2,8 @@ package com.ruoyi.system.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -76,8 +78,7 @@ public class SysPostController extends BaseController
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysPost post)
     {
-        if (UserConstants.NOT_UNIQUE.equals(postService.checkPostNameUnique(post)))
-        {
+        if (UserConstants.NOT_UNIQUE.equals(postService.checkPostNameUnique(post))) {
             return AjaxResult.error("新增岗位'" + post.getPostName() + "'失败，岗位名称已存在");
         }
         else if (UserConstants.NOT_UNIQUE.equals(postService.checkPostCodeUnique(post)))

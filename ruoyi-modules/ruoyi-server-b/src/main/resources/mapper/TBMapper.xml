@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.b.mapper.TBMapper">
+
+    <resultMap id="BaseResultMap" type="com.ruoyi.b.po.TB">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="b_1" column="b_1" jdbcType="VARCHAR"/>
+            <result property="b_2" column="b_2" jdbcType="VARCHAR"/>
+            <result property="b_3" column="b_3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,b_1,b_2,
+        b_3
+    </sql>
+</mapper>

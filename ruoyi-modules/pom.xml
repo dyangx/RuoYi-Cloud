@@ -13,6 +13,8 @@
         <module>ruoyi-gen</module>
         <module>ruoyi-job</module>
         <module>ruoyi-file</module>
+        <module>ruoyi-server-b</module>
+        <module>ruoyi-server-a</module>
     </modules>
 
     <artifactId>ruoyi-modules</artifactId>

@@ -7,6 +7,10 @@ MAINTAINER ruoyi
 VOLUME /home/ruoyi/projects/ruoyi-ui
 # 创建目录
 RUN mkdir -p /home/ruoyi/projects/ruoyi-ui
+
+RUN apt-get update
+RUN apt-get install vim
+
 # 指定路径
 WORKDIR /home/ruoyi/projects/ruoyi-ui
 # 复制conf文件到路径
