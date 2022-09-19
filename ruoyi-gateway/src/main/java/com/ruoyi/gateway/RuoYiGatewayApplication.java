@@ -1,8 +1,10 @@
 package com.ruoyi.gateway;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * 网关启动程序
@@ -10,8 +12,11 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * @author ruoyi
  */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-public class RuoYiGatewayApplication
-{
+public class RuoYiGatewayApplication{
+
+//    @Autowired
+//    RestTemplate template;
+
     public static void main(String[] args)
     {
         SpringApplication.run(RuoYiGatewayApplication.class, args);
@@ -26,4 +31,5 @@ public class RuoYiGatewayApplication
                 " |  |  \\    /  \\      /           \n" +
                 " ''-'   `'-'    `-..-'              ");
     }
+
 }

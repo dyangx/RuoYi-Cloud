@@ -112,7 +112,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService
 
         if (!code.equalsIgnoreCase(captcha))
         {
-            throw new CaptchaException("验证码错误");
+//            throw new CaptchaException("验证码错误");
         }
     }
 }

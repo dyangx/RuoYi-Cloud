@@ -2,7 +2,7 @@
   <div class="app-container home">
     <el-row :gutter="20">
       <el-col :sm="24" :lg="24">
-        <blockquote class="text-warning" style="font-size: 14px">
+<!--        <blockquote class="text-warning" style="font-size: 14px">
           领取阿里云通用云产品1888优惠券
           <br />
           <el-link
@@ -32,7 +32,7 @@
           <h4 class="text-danger">
             云产品通用红包，可叠加官网常规优惠使用。(仅限新用户)
           </h4>
-        </blockquote>
+        </blockquote>-->
 
         <hr />
       </el-col>
@@ -687,23 +687,6 @@
               </ol>
             </el-collapse-item>
           </el-collapse>
-        </el-card>
-      </el-col>
-      <el-col :xs="24" :sm="24" :md="12" :lg="8">
-        <el-card class="update-log">
-          <div slot="header" class="clearfix">
-            <span>捐赠支持</span>
-          </div>
-          <div class="body">
-            <img
-              src="https://oscimg.oschina.net/oscnet/up-d6695f82666e5018f715c41cb7ee60d3b73.png"
-              alt="donate"
-              width="100%"
-            />
-            <span style="display: inline-block; height: 30px; line-height: 30px"
-              >你可以请作者喝杯咖啡表示鼓励</span
-            >
-          </div>
         </el-card>
       </el-col>
     </el-row>
