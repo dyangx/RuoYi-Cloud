@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.system.util.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.domain.SysNotice;
@@ -88,5 +90,15 @@ public class SysNoticeServiceImpl implements ISysNoticeService
     public int deleteNoticeByIds(Long[] noticeIds)
     {
         return noticeMapper.deleteNoticeByIds(noticeIds);
+    }
+
+    public void test(){
+        String url = "https://cms-api.csdn.net/v1/web_home/select_content?componentIds=www-blog-recommend";
+//        url = new
+        while (true) {
+            String result = HttpUtil.ReturnGetBody(url);
+
+        }
+
     }
 }
