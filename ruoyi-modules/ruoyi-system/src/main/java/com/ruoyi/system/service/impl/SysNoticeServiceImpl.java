@@ -2,12 +2,14 @@ package com.ruoyi.system.service.impl;
 
 import java.util.List;
 
-import com.ruoyi.system.util.HttpUtil;
+import com.ruoyi.system.domain.SysNotice;
+import com.ruoyi.system.es.mapper.EsSysNoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.system.domain.SysNotice;
 import com.ruoyi.system.mapper.SysNoticeMapper;
 import com.ruoyi.system.service.ISysNoticeService;
+
+import javax.annotation.PostConstruct;
 
 /**
  * 公告 服务层实现
@@ -19,6 +21,9 @@ public class SysNoticeServiceImpl implements ISysNoticeService
 {
     @Autowired
     private SysNoticeMapper noticeMapper;
+
+    @Autowired
+    private EsSysNoticeMapper esSysNoticeMapper;
 
     /**
      * 查询公告信息
@@ -92,13 +97,9 @@ public class SysNoticeServiceImpl implements ISysNoticeService
         return noticeMapper.deleteNoticeByIds(noticeIds);
     }
 
+    @PostConstruct
     public void test(){
-        String url = "https://cms-api.csdn.net/v1/web_home/select_content?componentIds=www-blog-recommend";
-//        url = new
-        while (true) {
-            String result = HttpUtil.ReturnGetBody(url);
-
-        }
-
+        SysNotice notice = noticeMapper.selectNoticeById(10000L);
+        esSysNoticeMapper.insert(notice);
     }
 }

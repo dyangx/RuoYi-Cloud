@@ -1,102 +1,115 @@
 package com.ruoyi.system.domain;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import com.ruoyi.common.core.web.domain.BaseEntity;
-import com.ruoyi.common.core.xss.Xss;
+import cn.easyes.annotation.HighLight;
+import cn.easyes.annotation.IndexField;
+import cn.easyes.annotation.IndexId;
+import cn.easyes.annotation.IndexName;
+import cn.easyes.common.constants.Analyzer;
+import cn.easyes.common.enums.FieldStrategy;
+import cn.easyes.common.enums.FieldType;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
- * 通知公告表 sys_notice
- * 
- * @author ruoyi
+ * 通知公告表
+ * @TableName sys_notice
  */
-public class SysNotice extends BaseEntity
-{
-    private static final long serialVersionUID = 1L;
+@TableName(value ="sys_notice")
+@Data
+@IndexName("sys_notice")
+public class SysNotice implements Serializable {
+    /**
+     * 公告ID
+     */
+    @TableId(value = "notice_id", type = IdType.AUTO)
+    // es中的唯一id,如果你想自定义es中的id为你提供的id,比如MySQL中的id,请将注解中的type指定为customize,如此id便支持任意数据类型)
+    @IndexId(type = cn.easyes.common.enums.IdType.CUSTOMIZE)
+    private Integer noticeId;
 
-    /** 公告ID */
-    private Long noticeId;
-
-    /** 公告标题 */
+    /**
+     * 公告标题
+     * es: 文档标题,不指定类型默认被创建为keyword类型,可进行精确查询
+     */
+    @TableField(value = "notice_title")
     private String noticeTitle;
 
-    /** 公告类型（1通知 2公告） */
+    /**
+     * 公告类型（1通知 2公告）
+     */
+    @TableField(value = "notice_type")
     private String noticeType;
 
-    /** 公告内容 */
+    /**
+     * 公告内容
+     */
+    @TableField(value = "notice_content")
+    @HighLight(mappingField="highlightContent")
+    @IndexField(fieldType = FieldType.TEXT, analyzer = Analyzer.IK_SMART, searchAnalyzer = Analyzer.IK_MAX_WORD)
     private String noticeContent;
 
-    /** 公告状态（0正常 1关闭） */
+    /**
+     * 公告状态（0正常 1关闭）
+     */
+    @TableField(value = "status")
     private String status;
 
-    public Long getNoticeId()
-    {
-        return noticeId;
-    }
+    /**
+     * 创建者
+     */
+    @TableField(value = "create_by")
+    @IndexField(strategy = FieldStrategy.NOT_EMPTY)
+    private String createBy;
 
-    public void setNoticeId(Long noticeId)
-    {
-        this.noticeId = noticeId;
-    }
+    /**
+     * 创建时间
+     */
+    @TableField(value = "create_time")
+    @IndexField(fieldType = FieldType.DATE, dateFormat = "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis")
+    private Date createTime;
 
-    public void setNoticeTitle(String noticeTitle)
-    {
-        this.noticeTitle = noticeTitle;
-    }
+    /**
+     * 更新者
+     */
+    @TableField(value = "update_by")
+    @IndexField(exist = false)
+    private String updateBy;
 
-    @Xss(message = "公告标题不能包含脚本字符")
-    @NotBlank(message = "公告标题不能为空")
-    @Size(min = 0, max = 50, message = "公告标题不能超过50个字符")
-    public String getNoticeTitle()
-    {
-        return noticeTitle;
-    }
+    /**
+     * 更新时间
+     */
+    @TableField(value = "update_time")
+    private Date updateTime;
 
-    public void setNoticeType(String noticeType)
-    {
-        this.noticeType = noticeType;
-    }
+    /**
+     * 备注
+     */
+    @TableField(value = "remark")
+    private String remark;
 
-    public String getNoticeType()
-    {
-        return noticeType;
-    }
+    /**
+     * 标签
+     */
+    @TableField(value = "tag")
+    private String tag;
 
-    public void setNoticeContent(String noticeContent)
-    {
-        this.noticeContent = noticeContent;
-    }
+    /**
+     * 文章地址
+     */
+    @TableField(value = "url")
+    private String url;
 
-    public String getNoticeContent()
-    {
-        return noticeContent;
-    }
+    /**
+     * 图片地址
+     */
+    @TableField(value = "pic_url")
+    private String picUrl;
 
-    public void setStatus(String status)
-    {
-        this.status = status;
-    }
-
-    public String getStatus()
-    {
-        return status;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("noticeId", getNoticeId())
-            .append("noticeTitle", getNoticeTitle())
-            .append("noticeType", getNoticeType())
-            .append("noticeContent", getNoticeContent())
-            .append("status", getStatus())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
-            .toString();
-    }
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }

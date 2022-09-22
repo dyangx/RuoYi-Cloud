@@ -78,6 +78,12 @@
             <artifactId>ruoyi-common-swagger</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>cn.easy-es</groupId>
+            <artifactId>easy-es-boot-starter</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
