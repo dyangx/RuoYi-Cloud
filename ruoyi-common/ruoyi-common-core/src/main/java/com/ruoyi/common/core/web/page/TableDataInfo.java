@@ -29,6 +29,7 @@ public class TableDataInfo implements Serializable
      */
     public TableDataInfo()
     {
+        this.code = 200;
     }
 
     /**

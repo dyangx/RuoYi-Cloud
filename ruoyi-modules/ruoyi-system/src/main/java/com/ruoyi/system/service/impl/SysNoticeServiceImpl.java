@@ -1,9 +1,16 @@
 package com.ruoyi.system.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import cn.easyes.core.biz.PageInfo;
 import cn.easyes.core.conditions.LambdaEsIndexWrapper;
+import cn.easyes.core.conditions.LambdaEsQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ruoyi.common.core.utils.StringUtils;
+import com.ruoyi.common.core.web.page.TableDataInfo;
 import com.ruoyi.system.domain.SysNotice;
+import com.ruoyi.system.domain.vo.SysNoticePageVo;
 import com.ruoyi.system.es.mapper.EsSysNoticeMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +57,20 @@ public class SysNoticeServiceImpl implements ISysNoticeService
     public List<SysNotice> selectNoticeList(SysNotice notice)
     {
         return noticeMapper.selectNoticeList(notice);
+    }
+
+    @Override
+    public TableDataInfo selectNoticePage(SysNoticePageVo pageVo) {
+        LambdaEsQueryWrapper<SysNotice> queryWrapper = new LambdaEsQueryWrapper<>();
+        queryWrapper.match(StringUtils.isNotEmpty(pageVo.getNoticeContent()),SysNotice::getNoticeContent,pageVo.getNoticeContent());
+        queryWrapper.match(StringUtils.isNotEmpty(pageVo.getNoticeTitle()),SysNotice::getNoticeTitle,pageVo.getNoticeTitle());
+        queryWrapper.match(StringUtils.isNotEmpty(pageVo.getNoticeType()),SysNotice::getNoticeType,pageVo.getNoticeType());
+        queryWrapper.orderByAsc("_id");
+        PageInfo<SysNotice> pageInfo = esSysNoticeMapper.pageQuery(queryWrapper,pageVo.getPageNum(), pageVo.getPageSize());
+        TableDataInfo tableDataInfo = new TableDataInfo();
+        tableDataInfo.setRows(pageInfo.getList());
+        tableDataInfo.setTotal(pageInfo.getTotal());
+        return tableDataInfo;
     }
 
     /**
@@ -100,22 +121,34 @@ public class SysNoticeServiceImpl implements ISysNoticeService
         return noticeMapper.deleteNoticeByIds(noticeIds);
     }
 
-//    @PostConstruct
+    @PostConstruct
     public void run(){
 //        new Thread(this::test).start();
         test();
     }
 
     public void test(){
-        int id = 966900;
-        int step = 300;
+        int id = 76000;
+        int step = 9900;
         while (true) {
-            List<SysNotice> list = noticeMapper.queryList(id,id+step);
+            List<SysNotice> list = getList(id,step);
             if(list.isEmpty())
                 break;
             esSysNoticeMapper.insertBatch(list);
             id = id + step;
-            log.error("es process is going on : {}" , id);
+            log.info("es process is going on : {}" , id);
         }
     }
+
+    private List<SysNotice> getList(int s,int end){
+        List<Integer> list = new ArrayList<>();
+        end = end + s;
+        while (s <= end) {
+            list.add(s);
+            s++;
+        }
+        return esSysNoticeMapper.selectBatchIds(list);
+    }
+
+
 }

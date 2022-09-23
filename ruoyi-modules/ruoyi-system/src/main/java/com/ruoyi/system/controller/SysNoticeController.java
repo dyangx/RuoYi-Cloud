@@ -3,6 +3,7 @@ package com.ruoyi.system.controller;
 import java.util.List;
 
 import com.ruoyi.system.domain.SysNotice;
+import com.ruoyi.system.domain.vo.SysNoticePageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,6 +45,16 @@ public class SysNoticeController extends BaseController
         startPage();
         List<SysNotice> list = noticeService.selectNoticeList(notice);
         return getDataTable(list);
+    }
+
+
+    /**
+     * 获取通知公告列表
+     */
+    @RequiresPermissions("system:notice:list")
+    @GetMapping("/listForEs")
+    public TableDataInfo listEs(SysNoticePageVo notice){
+        return noticeService.selectNoticePage(notice);
     }
 
     /**

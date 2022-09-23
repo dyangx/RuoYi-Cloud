@@ -1,6 +1,10 @@
 package com.ruoyi.system.service;
 
+import cn.easyes.core.biz.PageInfo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ruoyi.common.core.web.page.TableDataInfo;
 import com.ruoyi.system.domain.SysNotice;
+import com.ruoyi.system.domain.vo.SysNoticePageVo;
 
 import java.util.List;
 
@@ -26,6 +30,8 @@ public interface ISysNoticeService
      * @return 公告集合
      */
     public List<SysNotice> selectNoticeList(SysNotice notice);
+
+    TableDataInfo selectNoticePage(SysNoticePageVo pageVo);
 
     /**
      * 新增公告

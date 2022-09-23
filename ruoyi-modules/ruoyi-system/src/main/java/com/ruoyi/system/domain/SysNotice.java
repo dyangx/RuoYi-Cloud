@@ -27,9 +27,12 @@ public class SysNotice implements Serializable {
     /**
      * 公告ID
      */
-    @TableId(value = "notice_id", type = IdType.AUTO)
     // es中的唯一id,如果你想自定义es中的id为你提供的id,比如MySQL中的id,请将注解中的type指定为customize,如此id便支持任意数据类型)
     @IndexId(type = cn.easyes.common.enums.IdType.CUSTOMIZE)
+    private Integer id;
+
+    @TableField(value = "notice_id")
+    @TableId(value = "notice_id", type = IdType.AUTO)
     private Integer noticeId;
 
     /**
@@ -109,6 +112,10 @@ public class SysNotice implements Serializable {
      */
     @TableField(value = "pic_url")
     private String picUrl;
+
+    public Integer getNoticeId() {
+        return id;
+    }
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
