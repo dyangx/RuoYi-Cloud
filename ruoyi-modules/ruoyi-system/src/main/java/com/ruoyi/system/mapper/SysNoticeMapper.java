@@ -1,6 +1,8 @@
 package com.ruoyi.system.mapper;
 
 import com.ruoyi.system.domain.SysNotice;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -58,4 +60,7 @@ public interface SysNoticeMapper
      * @return 结果
      */
     public int deleteNoticeByIds(Long[] noticeIds);
+
+    @Select("SELECT * from sys_notice where notice_id BETWEEN #{start} and #{end}")
+    List<SysNotice> queryList(@Param("start") Integer start,@Param("end") Integer end);
 }

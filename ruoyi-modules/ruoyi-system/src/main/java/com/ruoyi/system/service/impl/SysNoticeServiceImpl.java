@@ -2,8 +2,10 @@ package com.ruoyi.system.service.impl;
 
 import java.util.List;
 
+import cn.easyes.core.conditions.LambdaEsIndexWrapper;
 import com.ruoyi.system.domain.SysNotice;
 import com.ruoyi.system.es.mapper.EsSysNoticeMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.SysNoticeMapper;
@@ -16,6 +18,7 @@ import javax.annotation.PostConstruct;
  * 
  * @author ruoyi
  */
+@Slf4j
 @Service
 public class SysNoticeServiceImpl implements ISysNoticeService
 {
@@ -97,9 +100,22 @@ public class SysNoticeServiceImpl implements ISysNoticeService
         return noticeMapper.deleteNoticeByIds(noticeIds);
     }
 
-    @PostConstruct
+//    @PostConstruct
+    public void run(){
+//        new Thread(this::test).start();
+        test();
+    }
+
     public void test(){
-        SysNotice notice = noticeMapper.selectNoticeById(10000L);
-        esSysNoticeMapper.insert(notice);
+        int id = 966900;
+        int step = 300;
+        while (true) {
+            List<SysNotice> list = noticeMapper.queryList(id,id+step);
+            if(list.isEmpty())
+                break;
+            esSysNoticeMapper.insertBatch(list);
+            id = id + step;
+            log.error("es process is going on : {}" , id);
+        }
     }
 }
